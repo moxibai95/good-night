@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.goodnight.background.mapper.GoodNightUserMapper" >
+  <resultMap id="BaseResultMap" type="com.goodnight.background.entity.GoodNightUser" >
+    <result column="fid" property="fid" jdbcType="BIGINT" />
+    <result column="uid" property="uid" jdbcType="VARCHAR" />
+    <result column="login_account" property="loginAccount" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="BIGINT" />
+  </resultMap>
+  <insert id="insert" parameterType="com.goodnight.background.entity.GoodNightUser" >
+    insert into good_night_user (fid, uid, login_account, 
+      password, create_time, last_modify_time
+      )
+    values (#{fid,jdbcType=BIGINT}, #{uid,jdbcType=VARCHAR}, #{loginAccount,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{lastModifyTime,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.goodnight.background.entity.GoodNightUser" >
+    insert into good_night_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="loginAccount != null" >
+        login_account,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=BIGINT},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="loginAccount != null" >
+        #{loginAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        #{lastModifyTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+</mapper>
