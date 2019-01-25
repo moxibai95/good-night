@@ -3,6 +3,7 @@ package com.goodnight.background.service.Impl;
 import com.goodnight.background.dao.GoodNightUserDao;
 import com.goodnight.background.entity.GoodNightUser;
 import com.goodnight.background.service.GoodNightUserService;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,5 +25,11 @@ public class GoodNightUserServcieImpl implements GoodNightUserService {
         user.setCreateTime(df.format(new Date()));
         user.setLastModifyTime(System.currentTimeMillis());
         goodNightUserDao.save(user);
+    }
+
+    @Override
+    public GoodNightUser findUserByToken(UsernamePasswordToken token) {
+        GoodNightUser goodNightUser = goodNightUserDao.findUserByToken(token);
+        return goodNightUser;
     }
 }

@@ -60,4 +60,8 @@
       </if>
     </trim>
   </insert>
+
+  <select id="findUserByToken" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * FROM good_night_user WHERE login_account = #{userName} AND password = #{password}
+  </select>
 </mapper>
