@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
 
 
 @Component
@@ -33,7 +34,12 @@ public class CustomerRealm extends AuthorizingRealm {
         LOGGER.info("---------------用户开始登陆---------------");
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         GoodNightUser goodNightUser = goodNightUserService.findUserByToken(token);
-        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(token, goodNightUser.getPassword(), goodNightUser.getLoginAccount());
+        SimpleAuthenticationInfo authenticationInfo = null;
+        if (!Objects.isNull(goodNightUser)) {
+            authenticationInfo = new SimpleAuthenticationInfo(token.getPrincipal(), token.getPassword(), getName());
+        }else {
+            throw new AuthenticationException();
+        }
         Session session = SecurityUtils.getSubject().getSession();
         session.setAttribute("USER_SESSION", goodNightUser);
         return authenticationInfo;

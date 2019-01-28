@@ -1,5 +1,6 @@
 package com.goodnight.background.respones;
 
+import com.goodnight.background.config.ResponesCode;
 import lombok.Data;
 
 @Data
@@ -7,7 +8,7 @@ public class BaseRespones<T> {
     /**
      *  状态码
      */
-    private String statusCode;
+    private Integer statusCode;
 
     /**
      *  返回信息
@@ -21,8 +22,22 @@ public class BaseRespones<T> {
 
     public static BaseRespones Success() {
         BaseRespones baseRespones = new BaseRespones();
-        baseRespones.setStatusCode("1");
+        baseRespones.setStatusCode(200);
         baseRespones.setMessage("请求成功");
+        return baseRespones;
+    }
+
+    public static BaseRespones Success(String message) {
+        BaseRespones baseRespones = new BaseRespones();
+        baseRespones.setStatusCode(200);
+        baseRespones.setMessage(message);
+        return baseRespones;
+    }
+
+    public static BaseRespones responesByEnum(ResponesCode responesCode) {
+        BaseRespones baseRespones = new BaseRespones();
+        baseRespones.setStatusCode(responesCode.getCode());
+        baseRespones.setMessage(responesCode.getCodeMsg());
         return baseRespones;
     }
 }
